@@ -146,7 +146,7 @@ const displayItem = (item) => {
     const description = document.createElement("p");
     description.textContent = item.description;
 
-    const price = document.createElement("p");
+    const price = document.createElement("pres");
     price.textContent = `Ціна: ${item.price} UAH`;
 
     itemInfo.append(image);
@@ -158,14 +158,16 @@ const displayItem = (item) => {
     buyButton.style.display = "block";
 
     buyButton.addEventListener("click", () => {
-        const order = {
-            image: item.img,
-            title: item.name, 
-            price: item.price,
-            date: new Date().toLocaleDateString(),
-        };
+        const image = document.querySelector('img').src;
+        const heading = document.querySelector('h2').textContent;
+        const price = document.querySelector('pres').textContent;
+        const date = new Date().toLocaleDateString();
 
-        orders.push(order);
+        const order = {image, heading, price, date};
+        
+        
+
+        orders.unshift(order);
 
         displayForm();
 
@@ -346,16 +348,12 @@ const orderShopWrrap = document.querySelector('#orderShopWrapp');
 
 
 function orderProduct() {
-    
 
     image.src = orders[0].image;
     title.textContent = orders[0].title;
     quantity.textContent = `Кiлькість: ${quantityInput.value}`;
-    price.textContent = `Ціна: ${orders[0].price} UAH`;
+    price.textContent = `${orders[0].price}`;
     data.textContent = `Дата замовлення: ${orders[0].date}`;
-    
-    
-    
     
 }
 
@@ -369,7 +367,7 @@ btn.addEventListener('click', () => {
 });
 
 // btnDelete.addEventListener('click', () => {
-    
+//     orders.pop(order);
 // });
 
 
