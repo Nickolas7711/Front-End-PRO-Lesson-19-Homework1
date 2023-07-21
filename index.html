@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Styles/style.css">
+    <title>Homework 45</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">My-SHOP</div>
+        <button class="btn">Мої замовлення</button>
+    </div>
+    <div class="wrapp">
+        <div class="categories">
+            <ul id="categories"></ul>
+        </div>
+        <div class="content__inner">
+            <div class="items">
+                <ul id="itemsList"></ul>
+            </div>
+            <div class="item-details">
+                <div id="itemInfo"></div>
+                <button id="buyButton" >Купить</button>
+            </div>
+        </div>
+    </div>
+    <div  id="formOrder" >
+        <form id="orderForm">
+            <h1>Оформлення замовлення</h1>
+            <div class="user-payment">
+                <div class="form__surname">
+                    <div class="input-control">
+                        <label for="lastName">Прізвище:</label>
+                        <input type="text" id="lastName" name="lastName" >
+                        <div class="error"></div>
+                    </div>
+                    <div class="input-control">
+                        <label for="firstName">Ім'я:</label>
+                        <input type="text" id="firstName" name="firstName" >
+                        <div class="error"></div>
+                    </div>
+                    <div class="input-control">
+                        <label for="surName">По-батькові:</label>
+                        <input type="text" id="surName" name="surName">
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="form__payment-method" id="paymentMethod" name="paymentMethod">
+                    <div class="input-control">
+                        <label id="paymentMethod" for="paymentMethod" name="paymentMethod">Спосіб сплати:</label>
+                        <label for="cashOnDelivery">Накладений платіж</label>
+                        <input type="radio" id="cashOnDelivery" name="paymentMethod" value="Накладений платіж">
+                        <label for="creditCard">Сплата банківською карткою</label>
+                        <input type="radio" id="creditCard" name="paymentMethod" value="Сплата банківською карткою">
+                        <div class="error"></div>
+                    </div>
+                </div> 
+            </div>           
+            <div class="delivery">
+                <div class="form__sity">
+                    <div class="input-control">
+                        <label for="city">Місто доставки:</label>
+                        <select id="city" name="city" type="text">
+                            <option value="">Оберіть місто доставки</option>
+                            <option value="Київ">Київ</option>
+                            <option value="Харків">Харків</option>
+                            <option value="Одеса">Одеса</option>
+                            <option value="Херсон">Херсон</option>
+                            <option value="Миколаїв">Миколаїв</option>
+                            <option value="Кропивницький">Кропивницький</option>
+                            <option value="Суми">Суми</option>
+                            <option value="Житомир">Житомир</option>
+                            <option value="Львів">Львів</option>
+                            <option value="Ужгород">Ужгород</option>
+                            <option value="Луцьк">Луцьк</option>
+                        </select>
+                        <div class="error"></div>
+                    </div>
+                </div>
+                <div class="form__post-office">
+                    <div class="input-control">
+                        <label for="shippingMethod">Відділення Нової пошти:</label>
+                        <input type="text" id="shippingMethod" name="shippingMethod">
+                        <div class="error"></div>
+                    </div>
+                </div>
+            </div>            
+            <div class="form__quantity">
+                <div class="input-control">
+                    <label for="quantity">Кількість купуємой продукції:</label>
+                    <input type="number" id="quantity" name="quantity">
+                    <div class="error"></div>
+                </div>
+            </div>
+            <div class="form__comment">
+                <label for="comment">Коментар до замовлення:</label>
+                <textarea id="comment" name="comment"></textarea>
+            </div>
+            <div class="btn__form-order">
+                <button id="subimitOrder"> Оформити покупку</button>
+                <button id="removeBtn" >Відмінити</button>
+            </div>
+            
+        </form>
+    </div>    
+    <div id="orderInfoBr" class="order-info__br" style="display: none;">
+        <div id="orderInfo" class="order__info">
+            <h2>Інформація про замовлення:</h2>
+            <div id="productInfo" class="product__info">Ви обрали товар:</div>
+            <h3 id="deliveryInfo" class="delivery__info">Інформація пpо доставку:</h3>
+            <button type="button" onclick="sendingСonfirmation()">Підтвердити відправку</button>
+        </div>
+    </div>
+    <div class="order-shop shop-none" id="orderShopWrapp"></div>
+    <script src="index.js"></script>
+</body>
+</html>
