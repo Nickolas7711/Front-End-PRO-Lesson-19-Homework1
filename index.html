@@ -10,23 +10,25 @@
 <body>
     <div class="header">
         <div class="logo">My-SHOP</div>
-        <button class="btn">Мої замовлення</button>
+        <button class="btn" id="btn-openOrderProduct">Мої замовлення</button>
     </div>
-    <div class="wrapp">
-        <div class="categories">
-            <ul id="categories"></ul>
-        </div>
-        <div class="content__inner">
-            <div class="items">
-                <ul id="itemsList"></ul>
+    <div class="main">
+        <div class="wrapp">
+            <div class="categories">
+                <ul id="categories"></ul>
             </div>
-            <div class="item-details">
-                <div id="itemInfo"></div>
-                <button id="buyButton" >Купить</button>
+            <div class="content__inner">
+                <div class="items">
+                    <ul id="itemsList"></ul>
+                </div>
+                <div class="item-details">
+                    <div id="itemInfo"></div>
+                    <button id="buyButton" >Купить</button>
+                </div>
             </div>
         </div>
     </div>
-    <div  id="formOrder" >
+    <div  id="formOrder">
         <form id="orderForm">
             <h1>Оформлення замовлення</h1>
             <div class="user-payment">
@@ -48,8 +50,9 @@
                     </div>
                 </div>
                 <div class="form__payment-method" id="paymentMethod" name="paymentMethod">
-                    <div class="input-control">
+                    
                         <label id="paymentMethod" for="paymentMethod" name="paymentMethod">Спосіб сплати:</label>
+                        <div class="input-control">
                         <label for="cashOnDelivery">Накладений платіж</label>
                         <input type="radio" id="cashOnDelivery" name="paymentMethod" value="Накладений платіж">
                         <label for="creditCard">Сплата банківською карткою</label>
@@ -86,21 +89,19 @@
                         <div class="error"></div>
                     </div>
                 </div>
-            </div>            
-            <div class="form__quantity">
-                <div class="input-control">
-                    <label for="quantity">Кількість купуємой продукції:</label>
-                    <input type="number" id="quantity" name="quantity">
-                    <div class="error"></div>
+                <div class="quantity__product" style="display: none;">
+                    <!-- <label for="quantity">Кількість купуємой продукції:</label> -->
+                    <input type="number" id="quantity" name="quantity" value="1">
                 </div>
-            </div>
+                
+            </div>            
             <div class="form__comment">
                 <label for="comment">Коментар до замовлення:</label>
                 <textarea id="comment" name="comment"></textarea>
             </div>
             <div class="btn__form-order">
                 <button id="subimitOrder"> Оформити покупку</button>
-                <button id="removeBtn" >Відмінити</button>
+                <button id="removeBtn" >Скасувати</button>
             </div>
             
         </form>
@@ -110,10 +111,13 @@
             <h2>Інформація про замовлення:</h2>
             <div id="productInfo" class="product__info">Ви обрали товар:</div>
             <h3 id="deliveryInfo" class="delivery__info">Інформація пpо доставку:</h3>
-            <button type="button" onclick="sendingСonfirmation()">Підтвердити відправку</button>
+            <button id="btnConfirmationOrder">Підтвердити відправку</button>
         </div>
     </div>
-    <div class="order-shop shop-none" id="orderShopWrapp"></div>
+    <div class="order-shop" id="orderShopWrapp" style="display: none;">
+        <!-- <div class="order-card" id="orderCard"></div>  -->
+        <!-- <button id="continueShoping" class="continue-shoping">Продовжити замовлення</button> -->
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
