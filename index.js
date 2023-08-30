@@ -304,7 +304,7 @@ const setSuccess = element => {
 
 // Отмена заказа
 const cancelOrder = () => {
-    document.getElementById('formOrder').style.display = 'none';
+    document.querySelector('#formOrder').style.display = 'none';
     orderInfoBr.style.display = 'none';
 }
 
@@ -324,10 +324,10 @@ function displayOrderInfo(userData) {
 
     const productInfo = document.getElementById('itemInfo').innerHTML;
 
-    document.getElementById('productInfo').innerHTML = productInfo;
-    document.getElementById('deliveryInfo').innerHTML = deliveryInfo;
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('orderInfoBr').style.display = 'block';
+    document.querySelector('#productInfo').innerHTML = productInfo;
+    document.querySelector('#deliveryInfo').innerHTML = deliveryInfo;
+    document.querySelector('#orderForm').style.display = 'none';
+    document.querySelector('#orderInfoBr').style.display = 'block';
     
 }
 
@@ -344,7 +344,6 @@ function sendingСonfirmation() {
 
 
 buyButton.addEventListener("click", () => {
- 
     const image = selectedItemImage;
     const productCode = document.querySelector('code').textContent;
     const heading = document.querySelector('h2').textContent;
@@ -393,26 +392,23 @@ function cardOrderWrrap() {
             const quantityInput = document.createElement('input');
             const quantityDecreaseBtn = document.createElement('button');
             const quantityIncreaseBtn = document.createElement('button');
-            // const date = document.createElement('div');
+       
             const btnDelete = document.createElement('button');
 
             const totalAmount = orderItem.price.replace(/[^+\d]/g, '') * orderItem.quantityInputId;
             totalPrice.textContent = `Загальна ціна: ${totalAmount} UAH`;
-                     
-
+            
             cardShop.classList.add('card-shop');
             totalPrice.classList.add('total-price');
             blockQuantityInput.classList.add('blockQuantityInput');
             quantityDecreaseBtn.classList.add('quantityDecreaseBtn');
             quantityIncreaseBtn.classList.add('quantityIncreaseBtn');
-            // date.classList.add('data');
+            
             btnDelete.classList.add('btn-delete');
             btnDelete.innerText = 'Видалити';
             
             image.src = orderItem.image;
             title.textContent = orderItem.heading;
-            // price.textContent = orderItem.price;
-            // date.textContent = `Дата замовлення: ${orderItem.date}`;
             
             // Создаем поле ввода количества с кнопками + и -
             quantityInput.setAttribute('min', '1'); // Минимальное значение
@@ -442,7 +438,6 @@ function cardOrderWrrap() {
             blockQuantityInput.append(quantityDecreaseBtn);
             blockQuantityInput.append(quantityInput);
             blockQuantityInput.append(quantityIncreaseBtn);
-            // cardShop.append(date);
             cardShop.append(btnDelete);
             
             orderShopWrapp.append(cardShop);
@@ -502,18 +497,61 @@ function deleteOrder(orderItem) {
 function removeUserInfoFromLocalStorage() {
     localStorage.removeItem(LOCAL_STORAGE_USER_INFO);
 };
-
 // Отображение списка всех заказов
 function displayOrdersList() {
+    orderShopWrapp.innerHTML = '';
     mainBlockInner.style.display = "none";
     orderShopWrapp.style.display = "block";
-    cardOrderWrrap();
+
+    let totalAmountOrder = 0;
+    orders.forEach(order => {
+        const price = parseFloat(order.price.replace(/[^+\d]/g, '')); // Отримуємо ціну, видаляючи символи
+        const quantity = order.quantityInputId;
+        const totalAmount = price * quantity;
+        totalAmountOrder += totalAmount;
+    });
+
+    let previousDate = null;
+    orders.forEach((orderItem, index) => {
+        const currentDate = orderItem.date;
+
+        // Перевірка, чи дата є новою (відмінна від попередньої)
+        if (currentDate !== previousDate) {
+        const orderCard = document.createElement('div');
+        const sumTotal = document.createElement('div');
+        orderCard.classList.add('order-card');
+        sumTotal.classList.add('sum-total');
+        
+        const orderDate = document.createElement('div');
+        orderDate.classList.add('order-date');
+        orderDate.textContent = `Дата замовлення: ${orderItem.date}`;        
+        sumTotal.textContent = `Загальна сума: ${totalAmountOrder} UAH`;
+
+        // Додати обробник події для переключення відображення блоку
+        orderCard.addEventListener('click', () => {
+            cardOrderWrrap();
+        });
+
+        // ... Створюйте інші HTML-елементи для відображення додаткової інформації ...
+        orderShopWrapp.append(orderCard);
+        orderCard.append(orderDate);
+        orderCard.append(sumTotal);
+
+        previousDate = currentDate;
+        }
+        
+    });
+    
+    continueShoping();
+    // cardOrderWrrap();
 }
+
+
 
 // Обработчик кнопки "Мои заказы"
 btnOpenOrderProduct.addEventListener('click', () => {
     displayOrdersList();
-    cardOrderWrrap();
+    // cardOrderWrrap();
 });
 
 // Инициализация списка заказов при загрузке страницы
