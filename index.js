@@ -486,7 +486,7 @@ function displayOrdersList() {
 
     let totalAmountOrder = 0;
     orders.forEach(order => {
-        const price = parseFloat(order.price.replace(/[^+\d]/g, '')); // Отримуємо ціну, видаляючи символи
+        const price = parseFloat(order.price.replace(/[^+\d]/g, ''));
         const quantity = order.quantityInputId;
         const totalAmount = price * quantity;
         totalAmountOrder += totalAmount;
