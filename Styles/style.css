@@ -402,24 +402,16 @@ input, select {
 }
 
 .order-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     width: 95%;
     height: 100px;
-    background-color: rgb(233, 15, 15);
+    background-color: rgb(247, 247, 249);
     margin: 25px;
     border-radius: 20px;
 }
-
-
-/* .quantity-input {
-    width: 70px;
-    height: 20px;
-    font-family: 'Caprasimo', cursive;
-    font-size: 20px;
-    font-weight: 400; 
-    padding-left: 10px;
-    border-radius: 30px;
-    border: 2px solid blue;
-}  */
 
 .product__info {
     height: auto;
@@ -507,25 +499,16 @@ input, select {
     font-size: 20px;
 }
 
-.order-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .order-date {
-    width: 180px;
+    width: 200px;
     height: 70px;
     line-height: 25px;
     align-items: center;
     text-align: center;
     font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
 }
-
-
 
 .sum-total {
     width: 180px;
@@ -542,8 +525,6 @@ input, select {
     width: 100px;
     height: 30px;
     font-size: 16px;
-
-
 }
 
 @media(max-width: 1390px) {

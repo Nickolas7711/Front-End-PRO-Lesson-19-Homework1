@@ -92,7 +92,6 @@ let LOCAL_STORAGE_USER_INFO = 'userInfo';
 let orders = [];
 let userInfo = [];
 
-
 const blockCategory = document.querySelector('#categories');
 const mainBlockInner = document.querySelector('.main');
 const wrappCategory = document.querySelector('.wrapp');
@@ -115,7 +114,6 @@ Object.values(CATEGORIES).forEach((category) => {
     });
 });
 
-let selectedItemImage = '';
 // Отображение товаров категории
 const displayCategory = (category) => {
     const categoryItems = category.items;
@@ -146,8 +144,7 @@ const displayCategory = (category) => {
 // Отображение деталей товара
 const displayItem = (item) => {
     const itemDetails = document.querySelector(".item-details");
-    itemDetails.style.display = "block";
-    
+    itemDetails.style.display = "block";    
 
     const itemInfo = document.querySelector("#itemInfo");
     itemInfo.innerHTML = "";
@@ -243,8 +240,6 @@ const setSuccess = element => {
     inputControl.classList.remove('error');
 }
 
-
-    
     const validateInput = () => { 
 
         const userData = {
@@ -254,10 +249,8 @@ const setSuccess = element => {
             city: citySelect.value.trim(),
             shippingMethod: shippingMethodInput.value.trim(),
             paymentMethod: paymentMethodInput,
-            // quantity: quantityInput.value.trim(),
             comment: commentTextarea.value.trim(),
-        };
-        
+        };        
 
     (!userData.lastName || userData.lastName === '')
     ? setError(lastNameInput, 'Введіть Призвище!!!')
@@ -278,10 +271,6 @@ const setSuccess = element => {
     (!userData.shippingMethod)
     ? setError(shippingMethodInput, 'Введіть номер поштового відділення!!!')
     : setSuccess(shippingMethodInput);
-
-    // (isNaN(userData.quantity) || parseInt(userData.quantity) <= 0 || userData.quantity === '')
-    // ? setError(quantityInput, 'Введіть кількість товару!!!')
-    // : setSuccess(quantityInput);
 
     // (!paymentMethod)
     // ? setError(paymentMethodInput, 'Оберіть спосіб сплати!!!')
@@ -308,7 +297,6 @@ const cancelOrder = () => {
     orderInfoBr.style.display = 'none';
 }
 
-
 // Отображение деталей заказа
 function displayOrderInfo(userData) {
     const { lastName, firstName, surName, city, shippingMethod, paymentMethod, comment } = userData;
@@ -322,9 +310,9 @@ function displayOrderInfo(userData) {
 
     Коментар: ${comment}`;
 
-    const productInfo = document.getElementById('itemInfo').innerHTML;
+    // const productInfo = document.querySelector('#itemInfo').innerHTML;
 
-    document.querySelector('#productInfo').innerHTML = productInfo;
+    // document.querySelector('#productInfo').innerHTML = productInfo;
     document.querySelector('#deliveryInfo').innerHTML = deliveryInfo;
     document.querySelector('#orderForm').style.display = 'none';
     document.querySelector('#orderInfoBr').style.display = 'block';
@@ -338,10 +326,8 @@ btnConfirmationOrder.addEventListener('click', () => {
 
 function sendingСonfirmation() {
     orderInfoBr.style.display = 'none';
-    formOrder.style.display = 'none'; 
-            
+    formOrder.style.display = 'none';     
 }
-
 
 buyButton.addEventListener("click", () => {
     const image = selectedItemImage;
@@ -357,17 +343,15 @@ buyButton.addEventListener("click", () => {
     const existingOrderIndex = orders.findIndex(order => order.productCode === productCode);
 
     if (existingOrderIndex !== -1) {
-        // Если товар уже есть в заказах, увеличиваем количество
+
         orders[existingOrderIndex].quantityInputId += quantityInputId;
     } else {
-        // Если товара еще нет в заказах, добавляем его
+        
         const orderItems = { image, productCode, heading, price, date, quantityInputId };
         orders.push(orderItems);
     }
-
     addNewOrderProduct();
-    // console.log(orders);
-    
+        // console.log(orders);    
 });
 
 // Отображение карточек заказов
@@ -383,7 +367,6 @@ function cardOrderWrrap() {
     } else {
         orders.forEach((orderItem, index) => {
 
-
             const cardShop = document.createElement('li');
             const image = document.createElement('img');
             const title = document.createElement('h3');
@@ -392,7 +375,7 @@ function cardOrderWrrap() {
             const quantityInput = document.createElement('input');
             const quantityDecreaseBtn = document.createElement('button');
             const quantityIncreaseBtn = document.createElement('button');
-       
+
             const btnDelete = document.createElement('button');
 
             const totalAmount = orderItem.price.replace(/[^+\d]/g, '') * orderItem.quantityInputId;
@@ -411,8 +394,8 @@ function cardOrderWrrap() {
             title.textContent = orderItem.heading;
             
             // Создаем поле ввода количества с кнопками + и -
-            quantityInput.setAttribute('min', '1'); // Минимальное значение
-            quantityInput.setAttribute('value', orderItem.quantityInputId); // Устанавливаем текущее значение
+            quantityInput.setAttribute('min', '1');
+            quantityInput.setAttribute('value', orderItem.quantityInputId);
             quantityDecreaseBtn.innerText = '-';
             quantityIncreaseBtn.innerText = '+';
             
@@ -472,8 +455,7 @@ function continueShoping() {
     const btnContinueShoping = document.createElement('button');
     btnContinueShoping.classList.add('continue-shoping');
     btnContinueShoping.innerText = 'Продовжити замовлення';
-    orderShopWrapp.append(btnContinueShoping);
-    
+    orderShopWrapp.append(btnContinueShoping);    
 
     btnContinueShoping.addEventListener('click', () =>{
         window.history.back();
@@ -482,16 +464,15 @@ function continueShoping() {
     });
 }
 
-
 // Удаление заказа из списка
 function deleteOrder(orderItem) {
-            const index = orders.indexOf(orderItem);
-            if (index !== -1) {
-                orders.splice(index, 1);
-                addNewOrderProduct();
-                cardOrderWrrap();
-            }
-            removeUserInfoFromLocalStorage();
+    const index = orders.indexOf(orderItem);
+        if (index !== -1) {
+            orders.splice(index, 1);
+            addNewOrderProduct();
+            cardOrderWrrap();
+        }
+    removeUserInfoFromLocalStorage();
 }
 
 function removeUserInfoFromLocalStorage() {
@@ -515,7 +496,6 @@ function displayOrdersList() {
     orders.forEach((orderItem, index) => {
         const currentDate = orderItem.date;
 
-        // Перевірка, чи дата є новою (відмінна від попередньої)
         if (currentDate !== previousDate) {
         const orderCard = document.createElement('div');
         const sumTotal = document.createElement('div');
@@ -527,12 +507,10 @@ function displayOrdersList() {
         orderDate.textContent = `Дата замовлення: ${orderItem.date}`;        
         sumTotal.textContent = `Загальна сума: ${totalAmountOrder} UAH`;
 
-        // Додати обробник події для переключення відображення блоку
         orderCard.addEventListener('click', () => {
             cardOrderWrrap();
         });
 
-        // ... Створюйте інші HTML-елементи для відображення додаткової інформації ...
         orderShopWrapp.append(orderCard);
         orderCard.append(orderDate);
         orderCard.append(sumTotal);
@@ -540,20 +518,16 @@ function displayOrdersList() {
         previousDate = currentDate;
         }
         
-    });
-    
+    });    
     continueShoping();
-    // cardOrderWrrap();
+    
 }
-
-
 
 // Обработчик кнопки "Мои заказы"
 btnOpenOrderProduct.addEventListener('click', () => {
     displayOrdersList();
-    // cardOrderWrrap();
+    
 });
 
-// Инициализация списка заказов при загрузке страницы
 orders = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ORDER_ITEM)) || [];
 userInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_INFO)) || [];
